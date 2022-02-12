@@ -11,10 +11,21 @@
    1) Start PostgreSQL (user, schema & tables for keycloak initialized)
    2) Start Keycloak (no special configuration, from original Keycloak image)
    3) Done :-), we can use Keycloak
-   4) Stop Keycloak
-   5) Stop PostgreSQL
-3) We can rerun Phase 2 - Keycloak will run using still the same database
+3) Phase 3 - initialise database and run Keycloak
+   1) Stop Keycloak
+   2) Stop PostgreSQL
+4) We can rerun Phase 3 - Keycloak will run using still the same database
 <hr/>
+
+## TL;DR
+You can run through Phase 1 & 2 just by running the following script.
+```shell
+# This script has to be executed in project root
+./just_do_it.sh
+```
+Note, that it could last some time to get Keycloak ready, even if script finished successfully.
+
+Or you can go step by step and go even to Phase 3 :-)
 
 ## Phase 1
 ### Start PostgreSQL (Phase 1)
@@ -71,7 +82,6 @@ docker volume rm $POSTGRES_VOLUME_TO_BE_REMOVED
 <hr/>
 
 ## Phase 2
-
 ### Start PostgreSQL (Phase 2)
 ```shell
 # This script has to be executed in project root
@@ -89,13 +99,14 @@ http://localhost:8080
 
 :-)
 
-### Stop Keycloak (Phase 2)
+## Phase 3
+### Stop Keycloak (Phase 3)
 ```shell
 # This script has to be executed in project root
 docker-compose -f ./keycloak-2/docker-compose.yaml down
 ```
 
-### Stop PostgreSQL (Phase 2)
+### Stop PostgreSQL (Phase 3)
 ```shell
 # This script has to be executed in project root
 docker-compose -f ./postgres-2/docker-compose.yaml down
