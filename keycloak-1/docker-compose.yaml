@@ -1,0 +1,35 @@
+version: "3.9"
+
+networks:
+  m1-local-network:
+    name: m1-local-network
+
+services:
+  keycloak:
+    # Here we build keycloak image - this is neccessary to force SQL script generation
+    build: .
+    image: keycloak-1:latest
+    environment:
+      # Keycloak admin
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Database
+      DB_VENDOR: postgres
+      # This will work if you are using Docker Desktop on Windows (and probably also on Mac)
+      DB_ADDR: host.docker.internal
+      # If you are using different docker implementation, you have to specify your machine IP (or name) here
+      # DB_ADDR: <your-machine-IP-or-name>
+      DB_DATABASE: postgres
+      DB_SCHEMA: keycloak_schema
+      DB_USER: keycloak_user
+      DB_PASSWORD: keycloak_user_password
+    ports:
+      - "8080:8080"
+    networks:
+      - m1-local-network
+    volumes:
+      # SQL script will be placed in PostgreSQL 2 init directory.
+      - ../postgres-2/init:/tmp
+
+
+

@@ -1,0 +1,21 @@
+version: "3.9"
+
+networks:
+  m1-local-network:
+    name: m1-local-network
+
+services:
+  postgres:
+    image: postgres:13.6-alpine3.15
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - m1-local-network
+    volumes:
+      # Note, that scripts in this folder are run in alphabetical order
+      # See: https://github.com/docker-library/postgres/blob/2c72165e4f9dc66a61998111f69b5eba0b6b71f4/9.5/docker-entrypoint.sh#L77
+      - ./init:/docker-entrypoint-initdb.d
