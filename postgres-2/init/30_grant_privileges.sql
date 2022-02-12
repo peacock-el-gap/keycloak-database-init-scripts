@@ -3,6 +3,4 @@ GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA keycloak_schema
 TO keycloak_user;
 
-GRANT CREATE
-ON SCHEMA keycloak_schema
-TO keycloak_user;
+-- Note, that this user is not granted CREATE privilege
